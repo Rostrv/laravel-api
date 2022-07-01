@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,24 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/* Route::get('posts', function(){
+  $posts = Post::all();
+  return response()->json([
+'status code' =>200,
+'post'=>$posts,
+  ]);
+}); */
+
+//scorciatoia con relazione
+/* Route::get('posts', function(){
+  $posts = Post::with(['tags','category','user'])->get();
+  return $posts;
+});  */
+
+
+//scorciatoia con relazione e paginazione
+Route::get('posts', function(){
+    $posts = Post::with(['tags', 'category'])->orderByDesc('id')->paginate(30);
+    return $posts;
+  }); 
