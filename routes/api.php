@@ -35,7 +35,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //scorciatoia con relazione e paginazione
-Route::get('posts', function(){
-    $posts = Post::with(['tags', 'category'])->orderByDesc('id')->paginate(30);
-    return $posts;
-  }); 
+Route::get('posts', 'API\PostController@index'); 
+Route::get('categories', 'API\CategoryController@index'); 
+Route::get('tags', 'API\TagController@index'); 
+
